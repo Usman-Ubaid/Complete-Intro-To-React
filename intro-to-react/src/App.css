@@ -26,7 +26,8 @@ body {
   display: block;
 }
 
-.search-params input {
+.search-params input,
+.search-params select {
   display: block;
   margin: 5px 0 20px 0;
   padding: 3px 5px;
@@ -34,6 +35,7 @@ body {
   height: 30px;
   border: 1px solid #000;
   border-radius: 5px;
+  width: 325px;
 }
 
 .search-params button {
