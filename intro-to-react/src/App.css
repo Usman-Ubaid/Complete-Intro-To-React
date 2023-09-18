@@ -48,6 +48,7 @@ body {
   border: #333 1px solid;
   display: block;
   margin: 0 auto;
+  cursor: pointer;
 }
 
 .search-params button:hover {
