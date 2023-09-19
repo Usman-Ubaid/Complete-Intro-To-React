@@ -52,6 +52,7 @@ header > a,
   width: 325px;
 }
 
+.details button,
 .search-params button {
   color: #fff;
   padding: 4px 20px;
@@ -65,6 +66,7 @@ header > a,
   cursor: pointer;
 }
 
+.details button:hover,
 .search-params button:hover {
   background-color: #5f1d22;
 }
@@ -128,4 +130,31 @@ header > a,
   padding-top: 10px;
   flex-direction: column;
   justify-content: space-around;
+}
+
+.details {
+  background: #ffd6da;
+  box-shadow: 0px 0px 12px #aaa, -0px -0px 12px #fff;
+  width: 80%;
+  margin: 0 auto;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.details p {
+  font-weight: 500;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.details h1 {
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.details h2 {
+  text-align: center;
+  margin: 10px;
 }
