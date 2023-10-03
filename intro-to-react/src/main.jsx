@@ -25,12 +25,3 @@ hydrateRoot(
   </React.StrictMode>
 );
 
-// const Main = () => (
-//   <React.StrictMode>
-//     <QueryClientProvider client={queryClient}>
-//       <App />
-//     </QueryClientProvider>
-//   </React.StrictMode>
-// );
-
-// export default Main;
