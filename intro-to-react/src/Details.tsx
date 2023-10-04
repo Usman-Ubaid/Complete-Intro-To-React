@@ -6,7 +6,6 @@ import AdoptedPetContext from "./AdoptedPetContext";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 import fetchPet from "./fetchPet";
-import { PetAPIResponse } from "./APIResponsesTypes";
 
 const Modal = lazy(() => import("./Modal"));
 
@@ -21,7 +20,7 @@ const Details = () => {
     );
   }
   const navigate = useNavigate();
-  const results = useQuery<PetAPIResponse>(["details", id], fetchPet);
+  const results = useQuery(["details", id], fetchPet);
 
   if (results.isLoading) {
     return (
