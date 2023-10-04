@@ -1,14 +1,24 @@
 import { Component } from "react";
 
-class Carousel extends Component {
+interface IProps {
+  images: string[];
+}
+
+class Carousel extends Component<IProps> {
   state = {
     active: 0,
   };
 
-  handleClickIndex = (e) => {
-    this.setState({
-      active: +e.target.dataset.index,
-    });
+  handleClickIndex = (e: React.MouseEvent<HTMLElement>) => {
+    if (!(e.target instanceof HTMLElement)) {
+      return;
+    }
+
+    if (e.target.dataset.index) {
+      this.setState({
+        active: +e.target.dataset.index,
+      });
+    }
   };
 
   static defaultProps = {
