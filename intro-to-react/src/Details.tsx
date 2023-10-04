@@ -6,6 +6,7 @@ import AdoptedPetContext from "./AdoptedPetContext";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 import fetchPet from "./fetchPet";
+import { PetAPIResponse } from "./APIResponsesTypes";
 
 const Modal = lazy(() => import("./Modal"));
 
@@ -13,8 +14,14 @@ const Details = () => {
   const [showModal, setShowModal] = useState(false);
   const [_, setAdoptedPet] = useContext(AdoptedPetContext);
   const { id } = useParams();
+
+  if (!id) {
+    throw new Error(
+      "Why did you not give me an id? I wanted an id. I have no id."
+    );
+  }
   const navigate = useNavigate();
-  const results = useQuery(["details", id], fetchPet);
+  const results = useQuery<PetAPIResponse>(["details", id], fetchPet);
 
   if (results.isLoading) {
     return (
@@ -24,7 +31,10 @@ const Details = () => {
     );
   }
 
-  const pet = results.data.pets[0];
+  const pet = results?.data?.pets[0];
+  if (!pet) {
+    throw new Error("No pet lol.");
+  }
   return (
     <div className="details">
       <Carousel images={pet.images} />
@@ -58,10 +68,10 @@ const Details = () => {
   );
 };
 
-export default function DetailsErrorBoundary(props) {
+export default function DetailsErrorBoundary() {
   return (
     <ErrorBoundary>
-      <Details {...props} />
+      <Details />
     </ErrorBoundary>
   );
 }
