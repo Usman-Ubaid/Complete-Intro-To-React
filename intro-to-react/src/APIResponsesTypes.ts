@@ -18,3 +18,8 @@ export interface PetAPIResponse {
   hasIndex: boolean;
   pets: Pet[];
 }
+
+export interface BreedListAPIResponse {
+  animal: Animal;
+  breeds: string[];
+}
