@@ -1,12 +1,13 @@
 import { useState, lazy, Suspense } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import AdoptedPetContext from "./AdoptedPetContext";
+import { Pet } from "./APIResponsesTypes";
 
 const Details = lazy(() => import("./Details"));
 const SearchParams = lazy(() => import("./SearchParams"));
 
 function App() {
-  const adoptedPet = useState();
+  const adoptedPet = useState(null as Pet | null);
   return (
     <div>
       <AdoptedPetContext.Provider value={adoptedPet}>
