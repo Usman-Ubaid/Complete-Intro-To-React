@@ -1,17 +1,19 @@
-import { useState, useContext, lazy } from "react";
+import { useState, lazy } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import AdoptedPetContext from "./AdoptedPetContext";
+import { useAppDispatch } from "./adoptedPetHooks";
+import { adopt } from "./adoptedPetSlice";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 import fetchPet from "./fetchPet";
+import { Pet } from "./APIResponsesTypes";
 
 const Modal = lazy(() => import("./Modal"));
 
 const Details = () => {
   const [showModal, setShowModal] = useState(false);
-  const [_, setAdoptedPet] = useContext(AdoptedPetContext);
+  const dispatch = useAppDispatch();
   const { id } = useParams();
 
   if (!id) {
@@ -34,6 +36,7 @@ const Details = () => {
   if (!pet) {
     throw new Error("No pet lol.");
   }
+
   return (
     <div className="details">
       <Carousel images={pet.images} />
@@ -51,7 +54,7 @@ const Details = () => {
               <div className="buttons">
                 <button
                   onClick={() => {
-                    setAdoptedPet(pet);
+                    dispatch(adopt(pet));
                     navigate("/");
                   }}
                 >

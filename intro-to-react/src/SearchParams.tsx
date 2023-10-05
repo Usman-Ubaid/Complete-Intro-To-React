@@ -1,10 +1,10 @@
 import { useState, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
-import AdoptedPetContext from "./AdoptedPetContext";
 import fetchSearch from "./fetchSearch";
 import useBreedList from "./useBreedList";
 import Results from "./Results";
 import { Animal } from "./APIResponsesTypes";
+import { useAppSelector } from "./adoptedPetHooks";
 
 const ANIMALS: Animal[] = ["bird", "cat", "dog", "rabbit", "reptile"];
 
@@ -15,8 +15,9 @@ const SearchParams = () => {
     breed: "",
   });
   const [animal, setAnimal] = useState("" as Animal);
-  const [adoptedPet] = useContext(AdoptedPetContext);
   const results = useQuery(["search", requestParams], fetchSearch);
+  const adoptedPet = useAppSelector((state) => state.adoptedPet.value);
+
   const pets = results?.data?.pets ?? [];
 
   const [breeds] = useBreedList(animal);

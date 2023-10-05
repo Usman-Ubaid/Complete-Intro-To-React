@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./store";
+import { store } from "./store";
 
 const Details = lazy(() => import("./Details"));
 const SearchParams = lazy(() => import("./SearchParams"));
@@ -9,7 +9,7 @@ const SearchParams = lazy(() => import("./SearchParams"));
 function App() {
   return (
     <div>
-      <Provider value={store}>
+      <Provider store={store}>
         <header>
           <Link to="/">Adopt Me!</Link>
         </header>
