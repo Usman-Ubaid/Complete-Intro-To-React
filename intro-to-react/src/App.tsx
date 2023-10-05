@@ -1,16 +1,15 @@
-import { useState, lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import AdoptedPetContext from "./AdoptedPetContext";
-import { Pet } from "./APIResponsesTypes";
+import { Provider } from "react-redux";
+import store from "./store";
 
 const Details = lazy(() => import("./Details"));
 const SearchParams = lazy(() => import("./SearchParams"));
 
 function App() {
-  const adoptedPet = useState(null as Pet | null);
   return (
     <div>
-      <AdoptedPetContext.Provider value={adoptedPet}>
+      <Provider value={store}>
         <header>
           <Link to="/">Adopt Me!</Link>
         </header>
@@ -26,7 +25,7 @@ function App() {
             <Route path="/details/:id" element={<Details />} />
           </Routes>
         </Suspense>
-      </AdoptedPetContext.Provider>
+      </Provider>
     </div>
   );
 }
