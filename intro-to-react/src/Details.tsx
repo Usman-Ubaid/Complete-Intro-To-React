@@ -7,7 +7,6 @@ import { adopt } from "./adoptedPetSlice";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 import fetchPet from "./fetchPet";
-import { Pet } from "./APIResponsesTypes";
 
 const Modal = lazy(() => import("./Modal"));
 
