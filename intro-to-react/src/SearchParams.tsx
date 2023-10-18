@@ -5,7 +5,7 @@ import { all } from "./searchParamsSlice";
 import fetchSearch from "./fetchSearch";
 import useBreedList from "./useBreedList";
 import Results from "./Results";
-import { Animal } from "./APIResponsesTypes";
+import { Animal, BreedListAPIResponse } from "./APIResponsesTypes";
 import { useAppSelector } from "./adoptedPetHooks";
 
 const ANIMALS: Animal[] = ["bird", "cat", "dog", "rabbit", "reptile"];
@@ -19,7 +19,7 @@ const SearchParams = () => {
 
   const pets = results?.data?.pets ?? [];
 
-  const [breeds] = useBreedList(animal);
+  const { data } = useBreedList(animal);
 
   return (
     <div className="search-params">
@@ -59,11 +59,12 @@ const SearchParams = () => {
           ))}
         </select>
         <label htmlFor="breed">Breed</label>
-        <select id="breed" name="breed" disabled={!breeds.length}>
+        <select id="breed" name="breed" disabled={!data?.breeds.length}>
           <option />
-          {breeds.map((breed) => (
-            <option key={breed}>{breed}</option>
-          ))}
+          {data?.breeds &&
+            data.breeds.map((breed: string) => (
+              <option key={breed}>{breed}</option>
+            ))}
         </select>
         <button>Submit</button>
       </form>

@@ -1,12 +1,11 @@
 import { useState, lazy } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import { useAppDispatch } from "./adoptedPetHooks";
+import { useGetPetQuery } from "./petApiService";
 import { adopt } from "./adoptedPetSlice";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
-import fetchPet from "./fetchPet";
 
 const Modal = lazy(() => import("./Modal"));
 
@@ -21,9 +20,11 @@ const Details = () => {
     );
   }
   const navigate = useNavigate();
-  const results = useQuery(["details", id], fetchPet);
+  const { isLoading, data: pet } = useGetPetQuery(id);
 
-  if (results.isLoading) {
+  const pets = pet?.pets[0];
+
+  if (isLoading) {
     return (
       <div className="loading-pane">
         <h2 className="loader">Data Loading...</h2>
@@ -31,29 +32,28 @@ const Details = () => {
     );
   }
 
-  const pet = results?.data?.pets[0];
-  if (!pet) {
+  if (!pets) {
     throw new Error("No pet lol.");
   }
 
   return (
     <div className="details">
-      <Carousel images={pet.images} />
+      <Carousel images={pets.images} />
       <div>
-        <h1>{pet.name}</h1>
+        <h1>{pets.name}</h1>
         <h2>
-          {pet.animal} - {pet.breed} - {pet.city}, {pet.state}
+          {pets.animal} - {pets.breed} - {pets.city}, {pets.state}
         </h2>
-        <button onClick={() => setShowModal(true)}>Adopt {pet.name}</button>
-        <p>{pet.description}</p>
+        <button onClick={() => setShowModal(true)}>Adopt {pets.name}</button>
+        <p>{pets.description}</p>
         {showModal ? (
           <Modal>
             <div>
-              <h1>Would you like to adopt {pet.name}</h1>
+              <h1>Would you like to adopt {pets.name}</h1>
               <div className="buttons">
                 <button
                   onClick={() => {
-                    dispatch(adopt(pet));
+                    dispatch(adopt(pets));
                     navigate("/");
                   }}
                 >
